@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Topee.Models.favorite_store>
+
+@{
+    ViewBag.Title = "Index";
+}
+<hr />
+<table class="table" style="font-size:20px;">
+    <tr style="background-color:darkgray">
+        <th width="40%">
+            店家名稱
+        </th>
+        <th width="40%">
+            店主
+        </th>
+        <th width="20%"></th>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Store.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.User.username)
+            </td>
+
+            <td style="font-size:18px">
+                <p>@Html.ActionLink("🏠店家資訊", "Store_page", "Home", new { id = item.sid }, null)</p>
+
+                <p>
+                    <button onclick="location.href='@Url.Action("Delete", "favorite_store", new { id = item.id })'"
+                            class="btn btn-primary" style="width:90px">
+                        刪除
+                    </button>
+                </p>
+            </td>
+        </tr>
+        }
+    </table>
+
+    <div style="text-align:center; font-size:20px">
+        <b>@ViewBag.message</b>
+    </div>

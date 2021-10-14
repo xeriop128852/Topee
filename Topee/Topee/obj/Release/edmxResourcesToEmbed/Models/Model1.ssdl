@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TopeeDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Classify">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="sub_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="favorite_goods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="uid" Type="int" Nullable="false" />
+    <Property Name="gid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="favorite_store">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="uid" Type="int" Nullable="false" />
+    <Property Name="sid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Goods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="price" Type="int" Nullable="false" />
+    <Property Name="describe" Type="nvarchar" MaxLength="1000" />
+    <Property Name="url" Type="nvarchar" MaxLength="100" />
+    <Property Name="sid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hash_tag">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="gid" Type="int" Nullable="false" />
+    <Property Name="cid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="shop_car">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="uid" Type="int" Nullable="false" />
+    <Property Name="gid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="uid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="coin" Type="float" Nullable="false" />
+    <Property Name="sault" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_favorite_goods_Goods">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="1" />
+    <End Role="favorite_goods" Type="Self.favorite_goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="favorite_goods">
+        <PropertyRef Name="gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favorite_goods_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="favorite_goods" Type="Self.favorite_goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="favorite_goods">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favorite_store_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="favorite_store" Type="Self.favorite_store" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="favorite_store">
+        <PropertyRef Name="sid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favorite_store_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="favorite_store" Type="Self.favorite_store" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="favorite_store">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Goods_Store">
+    <End Role="Store" Type="Self.Store" Multiplicity="1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="sid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hash_tag_Classify">
+    <End Role="Classify" Type="Self.Classify" Multiplicity="1" />
+    <End Role="hash_tag" Type="Self.hash_tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classify">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hash_tag">
+        <PropertyRef Name="cid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hash_tag_Goods">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="1" />
+    <End Role="hash_tag" Type="Self.hash_tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hash_tag">
+        <PropertyRef Name="gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_shop_car_Goods">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="1" />
+    <End Role="shop_car" Type="Self.shop_car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="shop_car">
+        <PropertyRef Name="gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_shop_car_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="shop_car" Type="Self.shop_car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="shop_car">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Store_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Store" Type="Self.Store" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Store">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TopeeDatabaseModelStoreContainer">
+    <EntitySet Name="Classify" EntityType="Self.Classify" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="favorite_goods" EntityType="Self.favorite_goods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="favorite_store" EntityType="Self.favorite_store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Goods" EntityType="Self.Goods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hash_tag" EntityType="Self.hash_tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="shop_car" EntityType="Self.shop_car" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_favorite_goods_Goods" Association="Self.FK_favorite_goods_Goods">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="favorite_goods" EntitySet="favorite_goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favorite_goods_User" Association="Self.FK_favorite_goods_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="favorite_goods" EntitySet="favorite_goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favorite_store_Store" Association="Self.FK_favorite_store_Store">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="favorite_store" EntitySet="favorite_store" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favorite_store_User" Association="Self.FK_favorite_store_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="favorite_store" EntitySet="favorite_store" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Goods_Store" Association="Self.FK_Goods_Store">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hash_tag_Classify" Association="Self.FK_hash_tag_Classify">
+      <End Role="Classify" EntitySet="Classify" />
+      <End Role="hash_tag" EntitySet="hash_tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hash_tag_Goods" Association="Self.FK_hash_tag_Goods">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="hash_tag" EntitySet="hash_tag" />
+    </AssociationSet>
+    <AssociationSet Name="FK_shop_car_Goods" Association="Self.FK_shop_car_Goods">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="shop_car" EntitySet="shop_car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_shop_car_User" Association="Self.FK_shop_car_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="shop_car" EntitySet="shop_car" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Store_User" Association="Self.FK_Store_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Store" EntitySet="Store" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

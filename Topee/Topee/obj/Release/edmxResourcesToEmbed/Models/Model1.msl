@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TopeeDatabaseModelStoreContainer" CdmEntityContainer="TopeeDatabaseEntities">
+    <EntitySetMapping Name="Classify">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.Classify">
+        <MappingFragment StoreEntitySet="Classify">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="sub_name" ColumnName="sub_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="favorite_goods">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.favorite_goods">
+        <MappingFragment StoreEntitySet="favorite_goods">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="gid" ColumnName="gid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="favorite_store">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.favorite_store">
+        <MappingFragment StoreEntitySet="favorite_store">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Goods">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.Goods">
+        <MappingFragment StoreEntitySet="Goods">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="describe" ColumnName="describe" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hash_tag">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.hash_tag">
+        <MappingFragment StoreEntitySet="hash_tag">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="gid" ColumnName="gid" />
+          <ScalarProperty Name="cid" ColumnName="cid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="shop_car">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.shop_car">
+        <MappingFragment StoreEntitySet="shop_car">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="gid" ColumnName="gid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Store">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.Store">
+        <MappingFragment StoreEntitySet="Store">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="TopeeDatabaseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="coin" ColumnName="coin" />
+          <ScalarProperty Name="sault" ColumnName="sault" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,76 @@
+﻿
+<table class="table" style="font-size:20px;">
+    <tr style="background-color:darkgray">
+        <th width="25%">
+            圖片
+        </th>
+        <th width="45%">
+            名稱
+        </th>
+        <th width="15%">
+            價格
+        </th>
+        <th width="15%"></th>
+    </tr>
+    @{
+        foreach (var item in ViewData["result"] as IEnumerable<Topee.Models.Goods>)
+        {
+            <tr>
+                <td>
+                    <img class="img-rounded img-responsive" src="@item.url" width="150" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    <div style="color:red">NT$@Html.DisplayFor(modelItem => item.price)</div>
+                </td>
+                <td style="font-size:18px">
+                    <p>@Html.ActionLink("📜 商品頁", "Goods_Detail", new { id = item.id })</p>
+
+                    <p>
+                        <button onclick="shop_car(@item.id)" class="btn btn-primary" >
+                            💸 購物車
+                        </button>
+                    </p>
+
+                    <p>
+                        <button onclick="like_goods(@item.id)" class="btn btn-primary" style="width:90px">
+                            💗收藏
+                        </button>
+                    </p>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+    function shop_car(id) {
+        $.ajax({
+            url: '@Url.Action("Add_Shop_car", "Home")',
+            data: { id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("成功加入購物車");
+
+            }
+        });
+    }
+
+    function like_goods(id) {
+        $.ajax({
+            url: '@Url.Action("Add_Like_Goods", "favorite_goods")',
+            data: { id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("成功加入收藏");
+            }
+        });
+    }
+</script>

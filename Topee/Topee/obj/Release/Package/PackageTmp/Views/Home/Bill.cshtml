@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Topee.Models.shop_car>
+@{
+    ViewBag.Title = "Bill";
+}
+
+<h2>訂單</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+
+            <td width="80%">
+                商品
+            </td>
+            <td style="text-align:right">
+                價格
+            </td>
+        </tr>
+        @{
+            int i = 1;
+            int price = 0;
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Goods.name)
+                    </td>
+                    <td style="text-align:right">
+                        NT$@Html.DisplayFor(modelItem => item.Goods.price)
+                    </td>
+                </tr>
+                i++;
+                price += item.Goods.price;
+            }
+
+            int coin = ViewBag.coin;
+            if (coin > price)
+            {
+                coin = price;
+            }
+
+            ViewBag.discount = coin;
+            ViewBag.total_price = price;
+            ViewBag.bill = price - coin;
+            ViewBag.bonus = (float)ViewBag.bill / 100;
+        }
+        <tr style="font-size:20px">
+            <td>
+                可折抵
+            </td>
+            <td style="text-align:right">
+                @ViewBag.discount
+            </td>
+        </tr>
+        <tr style="font-size:20px">
+            <td>
+                總計
+            </td>
+
+            <td style="text-align:right">
+                <p> @ViewBag.total_price </p>
+
+                <p style="font-size:13px">- @ViewBag.discount</p>
+
+                <p style="color:red"> NT$@ViewBag.bill </p>
+
+                <p style="font-size:13px"> 可獲 @ViewBag.bonus TO幣  </p>
+
+                <p>
+                    @Html.AntiForgeryToken()
+                    <input type="button" value="確認下單" onclick="gogo()" class="btn btn-success" style="width:90px" id="button" />
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <div id="content">
+        @Html.Label("真實姓名 : ")
+        <input type="text" name="Realname" id="name" required="required" />
+        <br />
+        @Html.Label("手機號碼 : ")
+        <input type="text" name="Phonenumber" id="phone" required="required" />
+        <br />
+        @Html.Label("寄件地址 : ")
+        <input type="text" name="Address" id="address" required="required" />
+        <br />
+        <input type="submit" name="清空咯!" class="btn btn-success" />
+    </div>
+
+    <input type="hidden" name="Bonus" value="@ViewBag.bonus" />
+    <input type="hidden" name="Discount" value="@ViewBag.discount" />
+}
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $('#content').hide();
+
+    function gogo() {
+        $('#content').show();
+    }
+</script>

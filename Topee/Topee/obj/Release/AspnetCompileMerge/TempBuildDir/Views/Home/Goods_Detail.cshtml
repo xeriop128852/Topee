@@ -1,0 +1,91 @@
+﻿@model Topee.Models.Goods
+
+@{
+    ViewBag.Title = "Goods_Detail";
+}
+<hr />
+<table class="table">
+
+    <tr>
+                <td style="width:40%">
+                    <img class="img-rounded img-responsive" src="@Model.url" />
+                </td>
+                <td style="font-size:20px; vertical-align:middle;">
+                    <table class="table">
+                        <tr>
+                            <td style="width:20%">
+                                <b>名稱&nbsp;&nbsp;&nbsp;:</b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.name)
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>價格&nbsp;&nbsp;&nbsp;:</b>
+                            </td>
+                            <td style="color:red">
+                                NT$@Html.DisplayFor(model => model.price)
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>說明&nbsp;&nbsp;&nbsp;:</b>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.describe)
+                                <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+
+                            <td>
+                                <button onclick="shop_car(@Model.id)" class="btn btn-primary">
+                                    💸 購物車
+                                </button>
+                                <button onclick="like_goods(@Model.id)" class="btn btn-primary">
+                                    💗收藏
+                                </button>
+                                @Html.ActionLink("店家資訊->", "Store_page", new { id = Model.sid })
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+    </tr>
+</table>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+    function shop_car(id) {
+        $.ajax({
+            url: '@Url.Action("Add_Shop_car", "Home")',
+            data: { id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("成功加入購物車");
+            }
+        });
+    }
+
+    function like_goods(id) {
+        $.ajax({
+            url: '@Url.Action("Add_Like_Goods", "favorite_goods")',
+            data: { id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("成功加入收藏");
+            }
+        });
+    }
+
+</script>
+
+

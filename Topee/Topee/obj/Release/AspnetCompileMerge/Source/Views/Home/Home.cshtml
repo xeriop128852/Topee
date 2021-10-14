@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+<hr />
+<div style="margin-top:5px">
+    <div>
+        <p>
+            關鍵字:
+            <input type="text" id="keyword" />
+            <input type="button" id="keyword_Submit" value="關鍵字搜索" class="btn btn-primary" />
+        </p>
+    </div>
+    <div>
+        <p>
+            分類&nbsp;&nbsp;&nbsp;:&nbsp;@Html.DropDownList("classify", null, "---請選擇分類---", new { id = "select1" })
+            @Html.DropDownList("sub_classify", null, "------", new { id = "select2" })
+            <input type="button" id="select_Submit" value="查詢" class="btn btn-primary"  />
+        </p>
+    </div>
+</div>
+<br />
+<p>
+    <input type="button" id="all" value="列出隨機商品" class="btn btn-success" />
+</p>
+
+
+<div id="Select_Search"></div>
+<div id="Keyword_Search"></div>
+<div id="Default"></div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    Display_default();
+    $(document).ready(function () {
+        $('#select1').change(function () { ChangeClassi(); });
+        $('#select2').change(function () { ChangeSub(); });
+        $('#keyword_Submit').click(function () { Display_a(); });
+        $('#select_Submit').hide().click(function () { Display_b(); });
+        $('#all').click(function () { Display_default(); });
+    });
+
+    function ChangeClassi() {
+        var selectedValue = $("#select1").find("option:selected").text();
+
+        if ($.trim(selectedValue).length > 0) {
+            if (selectedValue != "---請選擇分類---") {
+                Getsub(selectedValue);
+            }
+            else
+            {
+                $('#select2').empty();
+                $('#select2').append($('<option></option>').text('------'));
+            }
+            $('#select_Submit').hide();
+        }
+    }
+    function ChangeSub() {
+        var selectedValue = $("#select2").find("option:selected").text();
+
+        if ($.trim(selectedValue).length > 0 && selectedValue != "---請選擇子分類---") {
+            $('#select_Submit').show();
+        }
+        else {
+            $('#select_Submit').hide();
+        }
+    }
+
+    function Getsub(name) {
+        $.ajax({
+            url: '@Url.Action("Classify", "Home")',
+            data: { name: name },
+            type: 'post',
+            cache: false,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#select2').empty();
+                    $('#select2').append($('<option></option>').text('---請選擇子分類---'));
+                    $.each(data, function (i, item) {
+                        $('#select2').append($('<option></option>').val(item.Key).text(item.Value));
+                    });
+                }
+            }
+        });
+    }
+
+    function Display_a() {
+        var keyword = document.getElementById('keyword').value;
+
+        $.ajax({
+            url: '@Url.Action("Keyword_Search", "Home")',
+            data: { keyword:keyword},
+            type: 'post',
+            cache: false,
+            async: false,
+            dataType: 'html',
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#Default').empty();
+                    $('#Select_Search').empty();
+                    $('#Keyword_Search').html(data);
+                }
+            }
+        });
+    }
+
+    function Display_b() {
+        var name = $("#select1").find("option:selected").text();
+        var sub_name = $("#select2").find("option:selected").text();
+
+        $.ajax({
+            url: '@Url.Action("Select_Search", "Home")',
+            data: { name:name, sub_name:sub_name},
+            type: 'post',
+            cache: false,
+            async: false,
+            dataType: 'html',
+            success: function (data) {
+                if (data.length > 0) {
+                        $('#Default').empty();
+                        $('#Keyword_Search').empty();
+                        $('#Select_Search').html(data);
+                    }
+                }
+        });
+    }
+
+    function Display_default() {
+        $.ajax({
+            url: '@Url.Action("Page_Default", "Home")',
+            data: {},
+            type: 'post',
+            cache: false,
+            async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#Select_Search').empty();
+                $('#Keyword_Search').empty();
+                $('#Default').html(data);
+            }
+        });
+    }
+
+
+</script>
+
+
+
+

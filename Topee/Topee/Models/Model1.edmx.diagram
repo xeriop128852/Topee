@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7dca27619d1e45abb860458d4a50d37c" Name="Diagram1">
+        <EntityTypeShape EntityType="TopeeDatabaseModel.Classify" Width="1.5" PointX="5.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.favorite_goods" Width="1.5" PointX="7.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.favorite_store" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.Goods" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.hash_tag" Width="1.5" PointX="7.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.shop_car" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.Store" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TopeeDatabaseModel.User" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_hash_tag_Classify" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_favorite_goods_Goods" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_favorite_goods_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_favorite_store_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_favorite_store_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_Goods_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_hash_tag_Goods" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_shop_car_Goods" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_shop_car_User" ManuallyRouted="false" />
+        <AssociationConnector Association="TopeeDatabaseModel.FK_Store_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

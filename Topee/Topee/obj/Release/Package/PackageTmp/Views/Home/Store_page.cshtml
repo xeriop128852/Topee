@@ -1,0 +1,49 @@
+﻿@model Topee.Models.Store
+<br />
+<table class="table">
+    <tr>
+        <td width="85%">
+            <b style="font-size : 25px">🏠 @Html.DisplayFor(model => model.name) 🏠</b>
+            &nbsp;&nbsp;owned by @Html.DisplayFor(model => model.User.username)
+        </td>
+
+        <td >
+            <button onclick="follow_store(@Model.id)" class="btn btn-success" style="width:90px">
+                🔔追蹤
+            </button>
+        </td>
+
+    </tr>
+</table>
+<div id="Goods_list"></div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    Display_Goods(@Model.id);
+    function Display_Goods(id) {
+        $.ajax({
+            url: '@Url.Action("Store_Goods", "Home")',
+            data: {id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            dataType: 'html',
+            success: function (data) {
+                $('#Goods_list').html(data);
+            }
+        });
+    }
+    
+    function follow_store(id) {
+        $.ajax({
+            url: '@Url.Action("Add_Follow_Store", "favorite_store")',
+            data: { id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("成功加入追蹤");
+            }
+        });
+    }
+</script>

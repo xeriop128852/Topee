@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Shop_car";
+}
+<br />
+<table class="table" style="font-size:30px;">
+    <tr style="text-align : center ">
+        <th width="85%" style="text-align : center ">
+            總計 : NT$@ViewBag.price
+        </th>
+        <th>
+            <button onclick="location.href='@Url.Action("Bill", "Home")' "
+                    class="btn btn-success" style="width:90px" id="button">
+                結帳
+            </button>
+        </th>
+    </tr>
+</table>
+
+
+<table class="table" style="font-size:20px;">
+
+    <tr style="background-color:darkgray">
+        <th width="25%">
+            圖片
+        </th>
+        <th width="45%">
+            名稱
+        </th>
+        <th width="15%">
+            價格
+        </th>
+        <th width="15%"></th>
+    </tr>
+    @{
+        foreach (var item in ViewData["result"] as IEnumerable<Topee.Models.shop_car>)
+        {
+            <tr>
+                <td>
+                    <img class="img-rounded img-responsive" src="@item.Goods.url" width="150" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Goods.name)
+                </td>
+                <td>
+                    <div style="color:red">NT$@Html.DisplayFor(modelItem => item.Goods.price)</div>
+                </td>
+                <td style="font-size:18px">
+                    <p>@Html.ActionLink("📜 商品頁", "Goods_Detail", new { id = item.Goods.id })</p>
+
+                    <p>
+                        <button onclick="location.href='@Url.Action("Shop_car_Delete", "Home", new { id =  item.id})'"
+                                class="btn btn-primary" style="width:90px">
+                            刪除
+                        </button>
+                    </p>
+
+                    <p>
+                        <button onclick="like_goods(@item.Goods.id)" class="btn btn-primary" style="width:90px">
+                            💗收藏
+                        </button>
+                    </p>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<div style="text-align:center; font-size:20px"><b>@ViewBag.message</b></div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    if (@ViewBag.price == 0) {
+        $('button').hide();
+    }
+
+    function like_goods(id) {
+        $.ajax({
+            url: '@Url.Action("Add_Like_Goods", "favorite_goods")',
+            data: { id:id},
+            type: 'post',
+            cache: false,
+            async: false,
+            success: function (data) {
+                alert("成功加入收藏");
+            }
+        });
+    }
+
+</script>
